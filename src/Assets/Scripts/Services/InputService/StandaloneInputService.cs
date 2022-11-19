@@ -19,7 +19,25 @@ namespace KasherOriginal.Services.Input
             }
         }
 
+        public override Vector2 MouseAxis
+        {
+            get
+            {
+                var input = SimpleMouseInputAxis();
+
+                if (input == Vector2.zero)
+                {
+                    input = GetUnityMouseAxis();
+                }
+
+                return input;
+            }
+        }
+
         private static Vector2 GetUnityAxis() =>
             new (UnityEngine.Input.GetAxis(Horizontal), UnityEngine.Input.GetAxis(Vertical));
+        
+        private static Vector2 GetUnityMouseAxis() =>
+            new (UnityEngine.Input.GetAxis(MouseX), UnityEngine.Input.GetAxis(MouseY));
     }
 }

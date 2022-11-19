@@ -21,29 +21,31 @@ namespace KasherOriginal.GlobalStateMachine
         public override async void Enter()
         {
             var baseMapPrefab = await _assetsAddressableService.GetAsset<GameObject>(AssetsAddressablesConstants.BASE_MAP);
-            var mainCameraPrefab =
-                await _assetsAddressableService.GetAsset<GameObject>(AssetsAddressablesConstants.MAIN_CAMERA);
             var basePlayerPrefab = await _assetsAddressableService.GetAsset<GameObject>(AssetsAddressablesConstants.BASE_PLAYER);
 
             var mapInstance = _environmentFactory.CreateInstance(baseMapPrefab, Vector3.zero);
-            var cameraInstance = _environmentFactory.CreateInstance(mainCameraPrefab, Vector3.zero);
             var playerInstance = _environmentFactory.CreateInstance(basePlayerPrefab, new Vector3(0, 1.5f,0));
 
-            SetUp(cameraInstance, playerInstance);
+            SetUp(playerInstance);
 
             Context.StateMachine.SwitchState<GameplayState>();
         }
 
-        private void SetUp(GameObject cameraInstance, GameObject playerInstance)
+        private void SetUp(GameObject playerInstance)
         {
-            if (cameraInstance.TryGetComponent(out CameraFollowing cameraFollowing))
-            {
-                cameraFollowing.SetTarget(playerInstance.transform);
-            }
-
             if (playerInstance.TryGetComponent(out PlayerMovement playerMovement))
             {
-                playerMovement.SetUp(_standaloneInputService, cameraInstance.GetComponent<Camera>());
+                playerMovement.SetUp(_standaloneInputService);
+            }
+            
+            if (playerInstance.TryGetComponent(out PlayerRotation mouseCameraRotation))
+            {
+                mouseCameraRotation.SetUp(_standaloneInputService);
+            }
+            
+            if (playerInstance.TryGetComponent(out PlayerSpeakable playerSpeakable))
+            {
+                playerSpeakable.SetUp(_standaloneInputService);
             }
         }
     }
