@@ -2,19 +2,26 @@ using Zenject;
 using UnityEngine;
 using KasherOriginal.AssetsAddressable;
 using KasherOriginal.Factories.UIFactory;
+using KasherOriginal.Services.Input;
 
 public class ServiceInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
         BindUIFactory();
-        //BindAbstractFactory();
+        BindInputService();
         BindAssetsAddressable();
+        BindEnvironmentFactory();
     }
 
     private void BindAssetsAddressable()
     {
         Container.BindInterfacesTo<AssetsAddressableService>().AsSingle();
+    }
+    
+    private void BindInputService()
+    {
+        Container.Bind<StandaloneInputService>().AsSingle();
     }
 
     private void BindUIFactory()
@@ -22,8 +29,8 @@ public class ServiceInstaller : MonoInstaller
         Container.BindInterfacesTo<UIFactory>().AsSingle();
     }
     
-    /*private void BindAbstractFactory()
+    private void BindEnvironmentFactory()
     {
-        Container.BindInterfacesTo<AbstractFactory>().AsSingle();
-    }*/
+        Container.BindInterfacesTo<EnvironmentFactory>().AsSingle();
+    }
 }
