@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0feebb1a50868488e943e52f4c8509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 40
+  _speed: 15
 --- !u!114 &-4926194331608260966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +189,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b6a60adf4c4fc78d85f5695801722a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _phrase: '{eq'
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &7527453864439441756
 GameObject:
   m_ObjectHideFlags: 0

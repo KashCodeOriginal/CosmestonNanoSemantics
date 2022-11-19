@@ -4,6 +4,7 @@ using KasherOriginal.Services.Input;
 public class PlayerSpeakable : MonoBehaviour, ISpeakable
 {
     [SerializeField] private string _phrase;
+    [SerializeField] private LayerMask _layerMask;
     
     private StandaloneInputService _inputService;
         
@@ -11,7 +12,7 @@ public class PlayerSpeakable : MonoBehaviour, ISpeakable
     {
         if (_inputService.IsSpaceButtonDown())
         {
-            
+            Speak();
         }
     }
 
@@ -20,10 +21,15 @@ public class PlayerSpeakable : MonoBehaviour, ISpeakable
         _inputService = standaloneInputService;
     }
 
+    public void Speak()
+    {
+        TriggerListenersAround();
+    }
+
     private void TriggerListenersAround()
     {
-        var colliders = Physics.OverlapSphere(transform.position, 5f);
-
+        var colliders = Physics.OverlapSphere(transform.position, 5f, _layerMask);
+        
         if (colliders.Length > 0)
         {
             FindListenersObjects(colliders);
@@ -34,9 +40,13 @@ public class PlayerSpeakable : MonoBehaviour, ISpeakable
     {
         foreach (var collider in colliders)
         {
-            if (collider.TryGetComponent(out IListenable listenable))
+            Debug.Log(collider.name);
+            
+            if (collider.TryGetComponent(out Citizen citizen))
             {
-                listenable.SetPhrase(_phrase);
+                Debug.Log(citizen);
+                
+               citizen.CitizenListen(_phrase);
             }
         }
     }
