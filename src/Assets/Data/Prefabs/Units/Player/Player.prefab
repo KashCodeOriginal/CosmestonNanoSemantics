@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b6a60adf4c4fc78d85f5695801722a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentPhrase: 1
+  _currentPhrase: 
   _speakRadius: 5
   _layerMask:
     serializedVersion: 2

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using ai.nanosemantics;
 using KasherOriginal.Services.Input;
 
 public class PlayerSpeakable : MonoBehaviour, ISpeakable
@@ -11,9 +13,15 @@ public class PlayerSpeakable : MonoBehaviour, ISpeakable
     private DialogSystem _dialogSystem;
 
     private bool _wasDialogStarted;
-    private Citizen _currentDialogCompanion;
+    private ASR _asr;
 
     public DialogSystem DialogSystem => _dialogSystem;
+
+    private void Start()
+    {
+        _dialogSystem.IsDialogEnded += ResetDialog;
+        _asr.OnAsrMessage += SetCurrentPhrase;
+    }
 
     private void Update()
     {
@@ -23,14 +31,22 @@ public class PlayerSpeakable : MonoBehaviour, ISpeakable
         }
     }
 
-    public void SetUp(StandaloneInputService standaloneInputService, DialogSystem dialogSystem)
+    public void SetUp(StandaloneInputService standaloneInputService, DialogSystem dialogSystem, ASR asr)
     {
         _inputService = standaloneInputService;
         _dialogSystem = dialogSystem;
+        _asr = asr;
     }
 
     public void Speak()
     {
+        _asr.StartRecoring();
+    }
+
+    private void SetCurrentPhrase(string message)
+    {
+        _currentPhrase = message;
+
         TriggerListenersAround();
     }
 
@@ -50,17 +66,20 @@ public class PlayerSpeakable : MonoBehaviour, ISpeakable
         {
             if (!collider.TryGetComponent(out Dialog dialog)) 
                 continue;
-            
+  
             if (!_wasDialogStarted)
             {
                 if (collider.TryGetComponent(out Citizen citizen))
                 {
+                    Debug.Log("df");
+                    
                     if (_dialogSystem.CanStartNewDialog(dialog, _currentPhrase))
                     {
-                        _currentDialogCompanion = citizen;
-                        _wasDialogStarted = true;
+                        Debug.Log("34");
                         
+                        _wasDialogStarted = true;
                         _dialogSystem.ProcessDialog(null);
+                        return;
                     }
                 }
             }
@@ -69,5 +88,16 @@ public class PlayerSpeakable : MonoBehaviour, ISpeakable
                 _dialogSystem.ProcessDialog(_currentPhrase);
             }
         }
+    }
+
+    private void ResetDialog()
+    {
+        _wasDialogStarted = false;
+    }
+
+    private void OnDisable()
+    {
+        _asr.OnAsrMessage -= SetCurrentPhrase;
+        _dialogSystem.IsDialogEnded -= ResetDialog;
     }
 }
