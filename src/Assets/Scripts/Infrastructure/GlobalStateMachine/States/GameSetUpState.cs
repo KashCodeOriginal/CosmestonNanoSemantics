@@ -22,16 +22,18 @@ namespace KasherOriginal.GlobalStateMachine
         {
             var baseMapPrefab = await _assetsAddressableService.GetAsset<GameObject>(AssetsAddressablesConstants.BASE_MAP);
             var basePlayerPrefab = await _assetsAddressableService.GetAsset<GameObject>(AssetsAddressablesConstants.BASE_PLAYER);
+            var dialogSystemPrefab = await _assetsAddressableService.GetAsset<GameObject>(AssetsAddressablesConstants.DIALOG_SYSTEM);
 
             var mapInstance = _environmentFactory.CreateInstance(baseMapPrefab, Vector3.zero);
             var playerInstance = _environmentFactory.CreateInstance(basePlayerPrefab, new Vector3(0, 1.5f,0));
+            var dialogSystemInstance = _environmentFactory.CreateInstance(dialogSystemPrefab, new Vector3(0, 1.5f,0));
 
-            SetUp(playerInstance);
+            SetUp(playerInstance, dialogSystemInstance);
 
             Context.StateMachine.SwitchState<GameplayState>();
         }
 
-        private void SetUp(GameObject playerInstance)
+        private void SetUp(GameObject playerInstance, GameObject dialogSystemInstance)
         {
             if (playerInstance.TryGetComponent(out PlayerMovement playerMovement))
             {
@@ -45,7 +47,7 @@ namespace KasherOriginal.GlobalStateMachine
             
             if (playerInstance.TryGetComponent(out PlayerSpeakable playerSpeakable))
             {
-                playerSpeakable.SetUp(_standaloneInputService);
+                playerSpeakable.SetUp(_standaloneInputService, dialogSystemInstance.GetComponent<DialogSystem>());
             }
         }
     }

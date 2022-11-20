@@ -1,8 +1,7 @@
 using Zenject;
-using UnityEngine;
+using KasherOriginal.Services.Input;
 using KasherOriginal.AssetsAddressable;
 using KasherOriginal.Factories.UIFactory;
-using KasherOriginal.Services.Input;
 
 public class ServiceInstaller : MonoInstaller
 {

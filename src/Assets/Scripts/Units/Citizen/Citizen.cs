@@ -18,8 +18,8 @@ public abstract class Citizen : MonoBehaviour
         _speakable.Speak();
     }
 
-    public void CitizenListen(string phrase)
+    public void CitizenListen(GameObject player, GameObject companion, string phrase)
     {
-        _listenable.Listen(phrase);
+        _listenable.Listen(player, companion, phrase);
     }
 }

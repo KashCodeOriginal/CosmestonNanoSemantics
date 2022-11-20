@@ -11,4 +11,5 @@ public class AssetsAddressablesConstants
     
     public const string BASE_MAP = "BaseMap";
     public const string BASE_PLAYER = "BasePlayer";
+    public const string DIALOG_SYSTEM = "DialogSystem";
 }

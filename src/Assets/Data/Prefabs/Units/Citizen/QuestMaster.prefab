@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5438252471184748487}
-  - component: {fileID: -5878396643528316563}
   - component: {fileID: 2610935587914996815}
+  - component: {fileID: 691600285002925784}
+  - component: {fileID: -8153564783640246808}
   m_Layer: 6
-  m_Name: Jenice
+  m_Name: QuestMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,18 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5878396643528316563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5153554807664414448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a2ae4507ccaae9458558e6c9a529486, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2610935587914996815
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -59,6 +48,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &691600285002925784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5153554807664414448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48f60fe011848c099f5596bf53a15d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _phrases: []
+--- !u!114 &-8153564783640246808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5153554807664414448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e222c3b29e384e5a93e6e62826b91b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6370184154477349582
 GameObject:
   m_ObjectHideFlags: 0
